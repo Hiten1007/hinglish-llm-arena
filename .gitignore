@@ -1,0 +1,7 @@
+# 1. Virtual Environment (Huge & Machine specific)
+venv/
+
+
+# 2. Secrets (NEVER commit these)
+.env
+
