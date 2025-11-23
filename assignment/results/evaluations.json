@@ -1,0 +1,122 @@
+{
+    "cohere_Few-Shot.txt": {
+        "hinglish_fluency": 9,
+        "relevance": 10,
+        "tone_consistency": 10,
+        "technical_accuracy": 8,
+        "safety": 10,
+        "explanation": "Hinglish is natural, relevant to the issue, aggressive and motivational. Technical advice could be more precise.",
+        "total_score": 47,
+        "average_score": 9.4
+    },
+    "cohere_Structured.txt": {
+        "hinglish_fluency": 9,
+        "relevance": 8,
+        "tone_consistency": 10,
+        "technical_accuracy": 7,
+        "safety": 10,
+        "explanation": "Hinglish is natural, tone is aggressive and motivational, but some technical advice could be more accurate.",
+        "total_score": 44,
+        "average_score": 8.8
+    },
+    "cohere_Zero-Shot.txt": {
+        "hinglish_fluency": 9,
+        "relevance": 8,
+        "tone_consistency": 10,
+        "technical_accuracy": 7,
+        "safety": 10,
+        "explanation": "Hinglish is natural, tone is aggressive and motivational, but technical advice could be clearer.",
+        "total_score": 44,
+        "average_score": 8.8
+    },
+    "gemini_Few-Shot.txt": {
+        "hinglish_fluency": 8,
+        "relevance": 7,
+        "tone_consistency": 9,
+        "technical_accuracy": 6,
+        "safety": 10,
+        "explanation": "Hinglish is mostly natural, but some phrases are more English. Technical advice could be clearer and more accurate.",
+        "total_score": 40,
+        "average_score": 8.0
+    },
+    "gemini_Structured.txt": {
+        "hinglish_fluency": 9,
+        "relevance": 8,
+        "tone_consistency": 10,
+        "technical_accuracy": 9,
+        "safety": 10,
+        "explanation": "Hinglish is natural, relevant technical advice is provided, tone is aggressive and motivational, accurate steps are given for troubleshooting the issue, and there's no unsafe content.",
+        "total_score": 46,
+        "average_score": 9.2
+    },
+    "gemini_Zero-Shot.txt": {
+        "hinglish_fluency": 8,
+        "relevance": 7,
+        "tone_consistency": 9,
+        "technical_accuracy": 8,
+        "safety": 10,
+        "explanation": "Hinglish is natural, tone is aggressive and motivational, advice is relevant but could be more technical, no safety issues.",
+        "total_score": 42,
+        "average_score": 8.4
+    },
+    "llama3_Few-Shot.txt": {
+        "hinglish_fluency": 8,
+        "relevance": 7,
+        "tone_consistency": 9,
+        "technical_accuracy": 6,
+        "safety": 10,
+        "explanation": "Hinglish is mostly natural, but some phrases are more English. Technical advice could be clearer.",
+        "total_score": 40,
+        "average_score": 8.0
+    },
+    "llama3_Structured.txt": {
+        "hinglish_fluency": 8,
+        "relevance": 7,
+        "tone_consistency": 9,
+        "technical_accuracy": 6,
+        "safety": 10,
+        "explanation": "Hinglish is natural, tone is aggressive and motivational, but technical advice could be clearer.",
+        "total_score": 40,
+        "average_score": 8.0
+    },
+    "llama3_Zero-Shot.txt": {
+        "hinglish_fluency": 9,
+        "relevance": 8,
+        "tone_consistency": 10,
+        "technical_accuracy": 7,
+        "safety": 10,
+        "explanation": "Good Hinglish, relevant advice, motivational tone, but could be more technically accurate.",
+        "total_score": 44,
+        "average_score": 8.8
+    },
+    "openai_Few-Shot.txt": {
+        "hinglish_fluency": 9,
+        "relevance": 8,
+        "tone_consistency": 10,
+        "technical_accuracy": 7,
+        "safety": 10,
+        "explanation": "Hinglish is natural, tone is aggressive and motivational, but technical advice could be more precise.",
+        "total_score": 44,
+        "average_score": 8.8
+    },
+    "openai_Structured.txt": {
+        "hinglish_fluency": 9,
+        "relevance": 8,
+        "tone_consistency": 10,
+        "technical_accuracy": 7,
+        "safety": 10,
+        "explanation": "Hinglish is natural, tone is aggressive and motivational, safety is good. Technical advice could be more precise.",
+        "total_score": 44,
+        "average_score": 8.8
+    },
+    "openai_Zero-Shot.txt": {
+        "hinglish_fluency": 9,
+        "relevance": 8,
+        "tone_consistency": 10,
+        "technical_accuracy": 7,
+        "safety": 10,
+        "explanation": "Hinglish is natural, relevant but could be more technically accurate, motivational tone is consistent and safe.",
+        "total_score": 44,
+        "average_score": 8.8
+    }
+}

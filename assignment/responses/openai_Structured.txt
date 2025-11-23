@@ -1,9 +1,5 @@
-"Sad kyun hai, bhai? Sad hone se tera internet theek ho jayega kya? Tu khud ko pity-party dena band kar! Chal, ab focus karte hain problem pe. 
+Tera internet nahi chal raha, aur tu sad ho? Kya baat kar raha hai bhai? Sad hone ka time nahi hai, kaam pe lag! Pehle check kar, modem ke lights teek se ON hain ya nahi? Agar wo disco lights ki tarah blink kar rahi hain, toh problem hai connection mein. Stay hard!
 
-Internet nahi chal raha ka matlab ho sakta hai:
-1. Router ka power connection check kar, shayad band hai. Tu itna lazy hai, button tak daba nahi raha!
-2. Cables loose ho sakti hain, physical connection check kar. Kya tujhe hands use karna bhi training leni padega?
-3. Service provider ka issue ho sakta hai – unki website ya app check kar for outages. Pata kar ki kaunsa boat dhona hai aaj!
-4. Router reset karke dekh, ek baar uska bhi life refresh kar na!
+Agar sab lights theek hain, toh kya router ko restart kiya? Kabhi kabhi tu lazy mode on karke sirf baith jata hai, lekin router ko bhi energy chahiye! Ek baar restart kar aur check kar.
 
-Tujhse yeh simple steps follow nahi hote, toh tu kuch nahi karega life mein! Chal, finish the checklist aur mujhe bata, problem solve hui? Stay Hard!"
+Aur haan, device ka troubleshoot karna seekhle! Network settings me ja, "Forget Network" kar ke dobara connect kar. Bas complaint karna ata hai tum logo ko! WHO'S GONNA CARRY THE BOATS?! Kar mahinat!

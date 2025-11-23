@@ -99,11 +99,11 @@ def run_strategy(strategy_name, prompt_text):
     print(f"✅ Success! (Latency: {latency:.2f}s, RAM Spike: {final_ram - initial_ram:.2f} MB)")
 
     # Save Text Response
-    with open(f"responses/local_{MODEL_NAME}_{strategy_name}.txt", "w", encoding="utf-8") as f:
+    with open(f"responses/{MODEL_NAME}_{strategy_name}.txt", "w", encoding="utf-8") as f:
         f.write(full_response)
 
     return {
-        "model": f"local-{MODEL_NAME}",
+        "model": f"{MODEL_NAME}",
         "strategy": strategy_name,
         "latency_ttfb": round(ttfb, 4),
         "latency_full": round(latency, 4),

@@ -1,15 +1,17 @@
-SAD? Tu sad hai? Nobody cares you're sad! Duniya mei kisko padi hai tera internet nahi chal raha? This ain't no charity, beta! Let's FIX this, NOW!
+Oyee Tu! Sad hai? Sad toh sab hote hai jab zindagi hard hoti hai! Lekin tu kya kar raha hai uske baare mein, huh? Just sitting there feeling sorry for yourself? Stay Hard!
 
-First things first, have you even TRIED anything? Or are you just gonna sit there aur rona dhona karega?
+Fine, fine, I'll help you out, but next time put in some damn effort!
 
-Okay, listen up! Tell me this:
+First things first, yeh "internet nahi chal raha" bolne se kuch nahi hoga.  Let's diagnose this properly.
 
-1.  **Router dekha?** Is the router ON? Lights are blinking like they got a purpose in life, or are they just DEAD? Plug nikal ke, phir laga ke dekha? (Unplugged and plugged it back in?) Itna bhi nahi kar sakta?
-2.  **Wifi connect ho raha hai ya nahi?** Is your device even CONNECTED to the WiFi network? Check your settings! Are you even logged in, or are you trying to browse on Mars?
-3.  **Kya devices connect ho rahe hai?** Is it just ONE device that's having problems, or is EVERYTHING dead? Phone, laptop, smart fridge… sab mar gaye? This helps figure out if the problem is your device or the WHOLE damn network.
-4.  **Speed test kiya?** Go to Speedtest.net (agar khul gaya toh!) and see what kind of numbers you're pulling. Zero? That's a PROBLEM. Anything less than what you PAY for? PROBLEM.
-5. **Modem se direct connect kar ke dekha?** Ethernet cable hai? Laptop ko direct modem se connect kar. Agar internet chalta hai, then your router is the problem. NO excuses.
+1.  **Router/Modem Check:**  Tu pehle ja ke dekh apna router aur modem properly plugged in hai ki nahi.  Kya dekh raha hai meri shakal? Check kar! Power light on hai? If not, that's your problem, genius. Turn it on and wait 2 mins.
 
-Tu mujhe ye sab bata, aur agar isme se kuch bhi nahi kiya, then **START DOING IT NOW!** I'm not gonna hold your hand through this. YOU need to take charge.
+2.  **Network Connectivity:**  Agar power light hai toh dekh device tera network se connected hai ki nahi. Dekh wifi icon pe exclamation mark toh nahi aa raha? Aur ethernet cable properly plugged in hai ki nahi? Tu connect kaise kar raha hai?
 
-Aur yaad rakh, nobody's coming to save you. **Who's gonna carry the boats? YOU ARE!** Now go fix your damn internet! Stay Hard!
+3.  **IP Address:**  Agar connected hai, toh check kar tera device IP address receive kar raha hai ki nahi.  Open command prompt/terminal and type `ipconfig /all` (Windows) or `ifconfig` (Mac/Linux).  Agar IP address 169.254.x.x se start ho raha hai toh tera IP address nahi mila.  That means tu restart kar router ko. Who's gonna carry the boats? Tu hi karega!
+
+4. **DNS server:** Also, see if your DNS server is up or not. If your DNS server is down you are likely not going anywhere.
+
+5.  **Contact ISP:**  Agar upar ka sab kuch theek hai toh call kar apne ISP (Internet Service Provider) ko.  Shayad unke side se kuch problem hai.  Lekin unko call karne se pehle sure kar ki tune apna homework kiya hai. Varna unko bhi pareshaan karega, mujhe bhi.
+
+Ab ja aur kar yeh sab. Don't come crying to me again until you've actually tried! STAY HARD!
