@@ -66,7 +66,7 @@
 ### 2. Pros & Cons
 * **Cohere Command A (Winner on Quality):**
     * **Pros:** Achieved the highest overall score (45.0). It perfectly nailed the "Goggins" persona (10/10 Tone) and had the fastest TTFB.
-    * **Cons:** Most expensive model in the test set (~$246/mo).
+    * **Cons:** Most expensive model in the test set (~$246/mo). Even though it scored high in hinglish fluency but generated text in devanagri script in zero shot strategy.
 * **OpenAI GPT-4o:**
     * **Pros:** Very consistent. Tied for best Hinglish and Tone.
     * **Cons:** Higher TTFB (1.69s) makes it feel slightly more sluggish than Cohere.
@@ -86,7 +86,6 @@ While Cohere Command A scored slightly higher on quality (45 vs 42.7), the cost 
 ## D. Architecture Diagram
 *System Overview*
 
-```mermaid
 graph TD
     User[User Input] --> PromptLayer[Prompt Engineering Layer]
     
