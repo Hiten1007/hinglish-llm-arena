@@ -1,3 +1,4 @@
+model, strategy,latency_ttfb,latency_full,tokens_in,tokens_out,cost
 gpt-4o,Zero-Shot,2.1077,5.9191,98,114,0.001388
 gemini-2.0-flash,Zero-Shot,1.0131,3.6793,101,210,9.4e-05
 command-a-03-2025,Zero-Shot,0.6081,3.8224,98,118,0.00143
@@ -7,3 +8,6 @@ command-a-03-2025,Few-Shot,0.5093,4.5434,113,103,0.00132
 gpt-4o,Structured,1.1853,4.4746,120,188,0.002183
 gemini-2.0-flash,Structured,0.8059,3.878,123,387,0.000167
 command-a-03-2025,Structured,0.5009,7.1761,120,145,0.001758
+local-llama3,Zero-Shot,20.372,73.6927,101,219,0.0
+local-llama3,Few-Shot,19.3923,80.5404,116,236,0.0
+local-llama3,Structured,17.7883,74.6564,118,216,0.0
