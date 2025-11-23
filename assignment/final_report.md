@@ -85,34 +85,38 @@ While Cohere Command A scored slightly higher on quality (45 vs 42.7), the cost 
 
 ## D. Architecture Diagram
 *System Overview*
-
+```mermaid
 graph TD
-    User[User Input] --> PromptLayer[Prompt Engineering Layer]
-    
-    subgraph "Prompting Strategies"
-        P1[Zero-Shot]
-        P2[Few-Shot]
-        P3[Structured]
+    subgraph "Input Stage"
+        User["User Query"]
     end
-    
-    PromptLayer --> P1 & P2 & P3
-    
-    subgraph "Model API Layer"
-        OpenAI[OpenAI GPT-4o]
-        Gemini[Gemini 2.0 Flash]
-        Cohere[Cohere Command A]
-        Local[Llama 3 (Local)]
+
+    subgraph "1. Prompting Layer"
+        User --> PromptEngine{"Prompt Engineering Logic"}
+        PromptEngine -- "Chooses ONE strategy" --> FormattedPrompt["Formatted Prompt"]
     end
-    
-    P1 & P2 & P3 --> OpenAI & Gemini & Cohere & Local
-    
-    subgraph "Evaluation & Logging"
-        Logger[Cost/Latency Logger (CSV)]
-        Judge[Judge Model (Qwen 2.5-7B)]
+
+    subgraph "2. API & Model Execution Layer"
+        FormattedPrompt --> APIRouter{API Router}
+        APIRouter --> OpenAI["OpenAI (GPT-4o)"]
+        APIRouter --> Gemini["Gemini"]
+        APIRouter --> Cohere["Cohere"]
+        APIRouter --> Local["Local LLM (e.g. Llama 3)"]
     end
-    
-    OpenAI & Gemini & Cohere & Local --> Logger
-    OpenAI & Gemini & Cohere & Local --> Judge
-    
-    Judge --> Report[Final Score JSON]
-    Logger --> CSV[Cost Analysis CSV]
+
+    subgraph "3. Logging & Data Persistence"
+        %% Metrics are logged from the router
+        APIRouter -- "Logs Latency & Cost" --> CSV["cost_latency.csv"]
+        
+        %% Raw text responses are saved from each model
+        OpenAI --> Responses["/responses/openai_response.txt"]
+        Gemini --> Responses
+        Cohere --> Responses
+        Local --> Responses
+    end
+
+    subgraph "4. Automated Evaluation Layer"
+        Responses -- "Reads all saved responses" --> JudgeModel["Judge Model (GPT-4o/Qwen)"]
+        JudgeModel -- "Scores responses based on criteria" --> EvalJSON["evaluations.json"]
+    end
+```
