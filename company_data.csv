@@ -1,0 +1,50 @@
+Category,Device_or_Topic,Issue,Protocol_Action
+Hardware,Vanguard Sentinel Cam,Offline / No Signal,"Check the hardline connection. Wireless is for amateurs. If the wire is cut, you are under siege."
+Hardware,Vanguard Sentinel Cam,Grainy Night Vision,"Clean the lens. Dirt is weakness. If image is still dark, use a tactical flashlight."
+Hardware,Smart Deadbolt,Battery Dead,You failed to maintain your gear. Use physical key override immediately. Replace battery within 1 hour.
+Hardware,Smart Deadbolt,Jamming / Not Locking,"Apply graphite lubricant. If it fails again, barricade the door manually. Do not leave it unlocked."
+Hardware,Motion Sensor,False Alarm,There are no false alarms. Only drills. Treat every beep as a breach until cleared.
+Hardware,Motion Sensor,Not Detecting Movement,Sensitivity is too low. Recalibrate via the app. Do a perimeter walk to test it yourself.
+Hardware,Glass Break Sensor,Triggered by Thunder,Sensitivity is too high. Adjust settings. Better safe than sorry.
+Hardware,Siren / Alarm,Volume Too Low,"This is a feature, not a bug. It is silent to disorient the intruder. The police are already en route."
+Hardware,Siren / Alarm,Won't Turn Off,"Enter your Master Code. If you forgot it, wait for the authorities. We cannot disable it remotely."
+Hardware,Panic Button,Accidental Press,We have already dispatched the drone. You will be charged a 'Wasted Time' fee of $50.
+Hardware,Panic Button,Sticky / Hard to Press,It requires force. Panic is not gentle. Strike it like you mean it.
+Hardware,Flood Sensor,Water Detected,Locate the main water valve. Shut it off. Then deal with the sensor. Priorities.
+Hardware,Smoke Detector,Beeping Chirp,Low battery. Replace it now. Do not ignore the chirp. Silence is death.
+Hardware,Smart Doorbell,Video Lag,Your Wi-Fi is weak. Upgrade your router or run an Ethernet cable. Latency kills.
+Hardware,Smart Doorbell,Button Stuck,"Check for debris or gum. If vandalized, check the footage and prepare a report."
+Hardware,Keypad,Buttons Unresponsive,"Reboot the panel (hold '0' for 10s). If dead, use the mobile app. No excuses."
+Hardware,Keypad,Tamper Alert,Someone tried to open the casing. Inspect for bugs or skimmers immediately.
+Software,Mobile App,Login Failed,"2FA is mandatory. If you forgot your code, we assume you are an imposter. Account locked for 30 mins."
+Software,Mobile App,Geofence Not Working,Enable GPS permissions 'Always'. Privacy is the enemy of security.
+Software,Mobile App,Crash on Launch,Update your OS. We do not support obsolete phones. Get better gear.
+Software,Mobile App,Cannot View Live Feed,Bandwidth issue. Stop streaming Netflix and prioritize the security feed.
+Software,Web Portal,Password Reset,We do not email passwords. We send a physical letter to your secure address. Wait 3 days.
+Software,Web Portal,Account Locked,Too many failed attempts. Visit a local branch with ID to unlock.
+Software,Firmware,Update Failed,Your internet is unstable. Connect to a UPS and retry. Do not power off during update.
+Subscription,Command Center,Cost Too High,"Safety costs money. If you are cheap, you are vulnerable. We do not offer discounts on survival."
+Subscription,Command Center,Payment Failed,"We will try again in 24 hours. If it fails twice, monitoring is suspended. You are on your own."
+Subscription,Command Center,Upgrade Plan,You want 'The Fortress' tier. Includes armed response and drone overwatch. $200/mo.
+Subscription,Command Center,Downgrade Plan,Denied. You cannot put a price on your life. Keep the current protection level.
+Policy,Refunds,Cancellation,Contracts are 12 months binding. You can't cancel security just because you feel safe. That is when they strike.
+Policy,Refunds,Defective Gear,We replace gear only if it failed in combat. Accidental drops are your fault.
+Policy,Data Privacy,Cloud Storage,We delete footage after 7 days unless flagged. We don't sell data; we hoard secrets.
+Policy,Data Privacy,Police Access,"We comply with warrants. If you are the criminal, we are not your shield."
+Policy,Warranty,Voiding Warranty,Opening the device voids warranty. Painting the device voids warranty. Respect the hardware.
+Emergency,Intruder,Confirmed Sighting,Lock yourself in the safe room. Arm yourself if trained. Wait for the cavalry.
+Emergency,Fire,Confirmed Fire,Evacuate immediately. Do not try to save the hardware. It is insured. You are not.
+Emergency,Medical,Heart Attack / Injury,Press the Red Cross button. EMS is notified. Unlock the front door for them.
+Emergency,Duress Code,Forced Entry,Enter your Duress Code (usually your PIN + 1). This silences the alarm but alerts the police of a hostage situation.
+Maintenance,System Health,Weekly Test,Run a full diagnostic every Sunday. Complacency is the first step to failure.
+Maintenance,Batteries,Replacement Schedule,Replace all sensor batteries annually. Do not wait for them to die.
+Maintenance,Backup Power,UPS Battery,Test your backup generator / UPS monthly. The grid is unreliable. You must be self-sufficient.
+Support,Contact,Phone Wait Time,"Hold the line. Patience is a virtue. If it is an emergency, hang up and dial 911."
+Support,Contact,Rude Agent,"Our agents are trained to be efficient, not polite. Feelings do not stop bullets."
+Support,Technician,Missed Appointment,"If you weren't home, we charged you a 'No Show' fee. We value our time."
+Support,Technician,Uniform Check,Verify the technician's ID badge through the peephole. Trust no one.
+Legal,Liability,Theft During Outage,We are not liable for losses during power outages. You should have bought the backup battery.
+Legal,Terms of Service,Arbitration,"By using Vanguard, you waive the right to sue. We settle disputes in the arena (Arbitration)."
+Tech Specs,Camera Resolution,4K vs 1080p,"We only sell 4K. You need to see the threat's face, not a pixelated blur."
+Tech Specs,Encryption,AES-256,We use military-grade encryption. Your footage is safer than your bank account.
+Tech Specs,Range,Z-Wave / Zigbee,"Sensors work up to 100ft. If your house is bigger, buy a repeater. Signal fade is not an option."

@@ -1,32 +1,31 @@
-import os
 import logging
 import chromadb
 from chromadb.utils import embedding_functions
 import google.generativeai as genai
 from functools import lru_cache
-from typing import AsyncGenerator, Optional
-
-# --- CONFIGURATION ---
-# Ensure these match your local setup
-DB_PATH = "../../security_db"  # Path to your ChromaDB folder
-COLLECTION_NAME = "home_defense_protocols"
-GEMINI_MODEL = "gemini-2.0-flash"
+from typing import AsyncGenerator
+import os
+from ..settings import settings  # Import the configured settings instance
 
 # Logger Setup
 logger = logging.getLogger(__name__)
 
-# --- 1. INITIALIZE SERVICES (Singleton Pattern) ---
+# --- 1. INITIALIZE SERVICES ---
+collection = None
+
 try:
-    # Initialize Gemini
-    api_key = os.getenv("GOOGLE_API_KEY")
-    if not api_key:
-        logger.warning("GOOGLE_API_KEY not found. AI generation will fail.")
+    # Initialize Gemini using Settings
+    if not settings.GOOGLE_API_KEY:
+        logger.warning("⚠️ GEMINI_API_KEY not found in settings. AI generation will fail.")
     else:
-        genai.configure(api_key=api_key)
+        genai.configure(api_key=settings.GOOGLE_API_KEY)
 
     # Initialize Vector DB (Chroma)
-    # PersistentClient ensures we load the data you ingested via the script
-    chroma_client = chromadb.PersistentClient(path=DB_PATH)
+    # We use the path defined in settings.py to ensure it finds the right folder
+    if not os.path.exists(settings.DB_PATH):
+        logger.warning(f"⚠️ DB Path not found: {settings.DB_PATH}. Run ingest_data.py first.")
+    
+    chroma_client = chromadb.PersistentClient(path=settings.DB_PATH)
     
     # Use local embeddings (Free, CPU-based)
     sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(
@@ -34,34 +33,27 @@ try:
     )
     
     collection = chroma_client.get_collection(
-        name=COLLECTION_NAME,
+        name=settings.COLLECTION_NAME,
         embedding_function=sentence_transformer_ef
     )
-    logger.info(f"✅ Vector DB Loaded: {COLLECTION_NAME}")
+    logger.info(f"✅ Vector DB Loaded: {settings.COLLECTION_NAME}")
 
 except Exception as e:
-    logger.error(f"❌ CRITICAL ERROR initializing services: {e}")
-    collection = None
+    logger.error(f"❌ Error initializing services (Non-Critical if DB is missing): {e}")
+    # We don't set collection to None here strictly so we can retry or fail gracefully later
 
-# --- 2. CONTEXT CACHING (Optimization) ---
-# We use @lru_cache to cache the results of this function in memory.
-# If the user asks the exact same question, we skip the DB query.
+# --- 2. CONTEXT CACHING (RAG) ---
 @lru_cache(maxsize=100)
 def retrieve_context_cached(query: str, n_results: int = 2) -> str:
     """
-    Searches the Vector DB for relevant company policies.
-    Cached to improve performance on repeated queries.
+    Retrieves relevant security protocols from Vector DB.
+    Cached to optimize performance for repeated queries.
     """
     if not collection:
         return ""
     
     try:
-        results = collection.query(
-            query_texts=[query],
-            n_results=n_results
-        )
-        
-        # Flatten results and join them
+        results = collection.query(query_texts=[query], n_results=n_results)
         if results.get('documents') and results['documents'][0]:
             return "\n---\n".join(results['documents'][0])
         return ""
@@ -69,7 +61,7 @@ def retrieve_context_cached(query: str, n_results: int = 2) -> str:
         logger.error(f"Error retrieving context: {e}")
         return ""
 
-# --- 3. PROMPT TEMPLATES ---
+# --- 3. STRUCTURED PROMPT TEMPLATES ---
 PROMPTS = {
     "David Goggins": """
 ### ROLE
@@ -117,46 +109,35 @@ You are Alastor 'Mad-Eye' Moody, Chief of Security Operations.
 # --- 4. CONTROLLER LOGIC ---
 async def process_chat_stream(user_message: str, persona: str) -> AsyncGenerator[str, None]:
     """
-    Main business logic:
-    1. Retrieve Context (RAG)
-    2. Build Prompt based on Persona
-    3. Stream response from Gemini
+    Orchestrates the RAG retrieval and Gemini generation.
     """
-    
-    # A. Get RAG Context (Cached)
-    # We check if the query is relevant to company data. 
-    # Simple logic: We always fetch context, but the prompt decides if it's useful.
+    # A. Retrieve Context
     context_data = retrieve_context_cached(user_message)
     
-    if not context_data:
-        context_text = "No specific company protocol found. Use general security knowledge."
+    if context_data:
+        context_block = f"### SECURITY PROTOCOLS (DATA)\n{context_data}"
     else:
-        context_text = f"--- OFFICIAL SECURITY PROTOCOLS ---\n{context_data}\n-----------------------------------"
+        context_block = "### SECURITY PROTOCOLS\nNo specific protocol found. Rely on general vigilance."
 
-    # B. Select Persona Template
-    # Default to Goggins if invalid persona sent
-    persona_instruction = PROMPTS.get(persona, PROMPTS["David Goggins"])
+    # B. Select Persona
+    system_instruction = PROMPTS.get(persona, PROMPTS["David Goggins"])
 
-    # C. Construct Final System Prompt
+    # C. Build Final Prompt
     final_prompt = f"""
-    {persona_instruction}
-    
-    MISSION:
-    The user has a security inquiry. Use the PROTOCOLS below to answer.
-    
-    {context_text}
-    
-    USER QUERY: {user_message}
-    
-    OUTPUT FORMAT:
-    1. Assess the threat level (Mock or Suspect the user).
-    2. State the PROTOCOL ACTION from the data (if relevant).
-    3. End with the Persona's catchphrase.
-    """
+{system_instruction}
 
-    # D. Call Gemini & Stream
+{context_block}
+
+### USER INPUT
+{user_message}
+"""
+
+    # D. Stream Response
     try:
-        model = genai.GenerativeModel(GEMINI_MODEL)
+        # Use the model defined in settings if available, else default
+        model_name = getattr(settings, "GEMINI_MODEL", "gemini-2.0-flash")
+        model = genai.GenerativeModel(model_name)
+        
         response_stream = model.generate_content(final_prompt, stream=True)
         
         for chunk in response_stream:
@@ -164,5 +145,5 @@ async def process_chat_stream(user_message: str, persona: str) -> AsyncGenerator
                 yield chunk.text
 
     except Exception as e:
-        logger.error(f"Gemini Generation Error: {e}")
+        logger.error(f"Gemini Error: {e}")
         yield f"SYSTEM FAILURE: {str(e)}"
