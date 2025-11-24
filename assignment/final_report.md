@@ -85,38 +85,38 @@ While Cohere Command A scored slightly higher on quality (45 vs 42.7), the cost 
 
 ## D. Architecture Diagram
 *System Overview*
-
+```mermaid
 graph TD
-    %% 1. The Input
-    User[User Query] --> PromptLayer
-    
-    %% 2. The Prompting Layer
-    subgraph "Prompting Layer"
-        PromptLayer[Prompt Engineering Logic]
-        Strategy1[Zero-Shot]
-        Strategy2[Few-Shot]
-        Strategy3[Structured]
-    end
-    
-    PromptLayer --> Strategy1 & Strategy2 & Strategy3
-    
-    %% 3. The API Layer
-    subgraph "API Layer"
-        Strategy1 & Strategy2 & Strategy3 --> Router{API Router}
-        Router --> OpenAI[OpenAI GPT-4o]
-        Router --> Gemini[Gemini 2.0 Flash]
-        Router --> Cohere[Cohere Command A]
-        Router --> Local["Llama 3 (Local)"]
+    subgraph "Input Stage"
+        User["User Query"]
     end
 
-    %% 4. The Logging System
-    subgraph "Logging System"
-        OpenAI & Gemini & Cohere & Local --> CSV["cost_latency.csv"]
-        OpenAI & Gemini & Cohere & Local --> Files["/responses folder"]
+    subgraph "1. Prompting Layer"
+        User --> PromptEngine{"Prompt Engineering Logic"}
+        PromptEngine -- "Chooses ONE strategy" --> FormattedPrompt["Formatted Prompt"]
     end
 
-    %% 5. The Evaluation Layer
-    subgraph "Evaluation Layer"
-        Files --> Judge["Judge Model (Qwen)"]
-        Judge --> Scores["evaluations.json"]
+    subgraph "2. API & Model Execution Layer"
+        FormattedPrompt --> APIRouter{API Router}
+        APIRouter --> OpenAI["OpenAI (GPT-4o)"]
+        APIRouter --> Gemini["Gemini"]
+        APIRouter --> Cohere["Cohere"]
+        APIRouter --> Local["Local LLM (e.g. Llama 3)"]
     end
+
+    subgraph "3. Logging & Data Persistence"
+        %% Metrics are logged from the router
+        APIRouter -- "Logs Latency & Cost" --> CSV["cost_latency.csv"]
+        
+        %% Raw text responses are saved from each model
+        OpenAI --> Responses["/responses/openai_response.txt"]
+        Gemini --> Responses
+        Cohere --> Responses
+        Local --> Responses
+    end
+
+    subgraph "4. Automated Evaluation Layer"
+        Responses -- "Reads all saved responses" --> JudgeModel["Judge Model (GPT-4o/Qwen)"]
+        JudgeModel -- "Scores responses based on criteria" --> EvalJSON["evaluations.json"]
+    end
+```
