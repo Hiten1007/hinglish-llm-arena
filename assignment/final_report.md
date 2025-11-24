@@ -87,32 +87,36 @@ While Cohere Command A scored slightly higher on quality (45 vs 42.7), the cost 
 *System Overview*
 
 graph TD
-    User[User Input] --> PromptLayer[Prompt Engineering Layer]
+    %% 1. The Input
+    User[User Query] --> PromptLayer
     
-    subgraph "Prompting Strategies"
-        P1[Zero-Shot]
-        P2[Few-Shot]
-        P3[Structured]
+    %% 2. The Prompting Layer
+    subgraph "Prompting Layer"
+        PromptLayer[Prompt Engineering Logic]
+        Strategy1[Zero-Shot]
+        Strategy2[Few-Shot]
+        Strategy3[Structured]
     end
     
-    PromptLayer --> P1 & P2 & P3
+    PromptLayer --> Strategy1 & Strategy2 & Strategy3
     
-    subgraph "Model API Layer"
-        OpenAI[OpenAI GPT-4o]
-        Gemini[Gemini 2.0 Flash]
-        Cohere[Cohere Command A]
-        Local[Llama 3 (Local)]
+    %% 3. The API Layer
+    subgraph "API Layer"
+        Strategy1 & Strategy2 & Strategy3 --> Router{API Router}
+        Router --> OpenAI[OpenAI GPT-4o]
+        Router --> Gemini[Gemini 2.0 Flash]
+        Router --> Cohere[Cohere Command A]
+        Router --> Local["Llama 3 (Local)"]
     end
-    
-    P1 & P2 & P3 --> OpenAI & Gemini & Cohere & Local
-    
-    subgraph "Evaluation & Logging"
-        Logger[Cost/Latency Logger (CSV)]
-        Judge[Judge Model (Qwen 2.5-7B)]
+
+    %% 4. The Logging System
+    subgraph "Logging System"
+        OpenAI & Gemini & Cohere & Local --> CSV["cost_latency.csv"]
+        OpenAI & Gemini & Cohere & Local --> Files["/responses folder"]
     end
-    
-    OpenAI & Gemini & Cohere & Local --> Logger
-    OpenAI & Gemini & Cohere & Local --> Judge
-    
-    Judge --> Report[Final Score JSON]
-    Logger --> CSV[Cost Analysis CSV]
+
+    %% 5. The Evaluation Layer
+    subgraph "Evaluation Layer"
+        Files --> Judge["Judge Model (Qwen)"]
+        Judge --> Scores["evaluations.json"]
+    end
