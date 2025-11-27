@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
+import { ChatWidget } from "@/components/ui/chatwidget";
 import { 
   Shield, 
   Eye, 
@@ -890,6 +891,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
+      <ChatWidget />
     </div>
   );
 }

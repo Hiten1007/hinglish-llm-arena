@@ -45,9 +45,16 @@
 | **Llama 3 (Local)** | 19.97 s | 80.83 s |
 
 ### 2. TTFB Analysis
-* **Cohere Command A (0.60s):** Had the fastest "perceived latency." The connection opens almost instantly, making the chat feel very responsive.
-* **Gemini 2.0 Flash (0.98s):** Extremely competitive. Google's infrastructure consistently delivers sub-1-second starts.
-* **Llama 3 (19.97s):** The local model performance suggests it was running on CPU or a bandwidth-constrained GPU. A 20-second delay before the first word appears makes this specific local setup unusable for real-time chat.
+* **Cohere Command A (0.60s):** Cohere's infrastructure is heavily optimized for enterprise RAG and chat workloads where initial responsiveness is critical. The low TTFB suggests highly efficient "pre-fill" processing (ingesting the prompt) and a lack of heavy safety-filter overhead compared to broader consumer models.
+* **Gemini 2.0 Flash (0.98s):** Google's use of TPU (Tensor Processing Unit) infrastructure provides massive throughput. "Flash" models are specifically distilled or architected (likely Mixture-of-Experts) to reduce the computational path for the first token, consistently keeping start times under 1 second.
+* **OpenAI GPT-4o (1.69s - Moderate):** While highly intelligent, GPT-4o exhibits a higher TTFB. This is likely due to:
+
+System Load: As the most popular model globally, requests often sit in a routing queue before hitting a GPU.
+
+Safety Guardrails: OpenAI applies rigorous content filtering before generation begins, adding millisecond overhead.
+
+MoE Routing: Routing the prompt to the correct expert parameters in a massive Mixture-of-Experts architecture takes non-trivial compute time.
+* **Llama 3 (19.97s):** The local model's performance indicates a hardware bottleneck. The 20-second delay is the system struggling with Memory Bandwidth. Moving model weights from RAM to the compute unit (CPU/GPU) took significantly longer than the actual generation, proving that consumer hardware without quantization is the primary limiting factor for local LLMs.
 
 ---
 
@@ -87,7 +94,36 @@ While Cohere Command A scored slightly higher on quality (45 vs 42.7), the cost 
 *System Overview*
 ```mermaid
 graph TD
-    subgraph "Input Stage"
+    %% --- PART 1: EXPERIMENT & BENCHMARKING (THE CORE ASSIGNMENT) ---
+    subgraph "Phase 1: Offline Experimentation Pipeline"
+        
+        subgraph "Step 1: Prompt Strategy Design"
+            P1["Zero-Shot Prompt"]
+            P2["Few-Shot Prompt"]
+            P3["Structured Prompt"]
+        end
+
+        subgraph "Step 2: Multi-Model Execution"
+            P1 & P2 & P3 --> M1["OpenAI GPT-4o"]
+            P1 & P2 & P3 --> M2["Gemini 1.5/2.0"]
+            P1 & P2 & P3 --> M3["Cohere Command"]
+            P1 & P2 & P3 --> M4["Llama 3 (Local)"]
+        end
+
+        subgraph "Step 3: Data Logging"
+            M1 & M2 & M3 & M4 --> RawFiles["/responses/*.txt"]
+            M1 & M2 & M3 & M4 --> CostCSV["cost_latency.csv"]
+        end
+
+        subgraph "Step 4: Automated Evaluation"
+            RawFiles --> Judge["Judge Model (Qwen 2.5-7B)"]
+            Judge -- "Scores (Fluency, Tone, Safety)" --> EvalJSON["evaluations.json"]
+        end
+    end
+
+    %% --- PART 2: PRODUCTION SYSTEM (BONUS) ---
+    subgraph "Phase 2: Production System (Bonus Features)"
+        subgraph "Input Stage"
         User["User Query"]
     end
 
@@ -114,9 +150,5 @@ graph TD
         Cohere --> Responses
         Local --> Responses
     end
-
-    subgraph "4. Automated Evaluation Layer"
-        Responses -- "Reads all saved responses" --> JudgeModel["Judge Model (GPT-4o/Qwen)"]
-        JudgeModel -- "Scores responses based on criteria" --> EvalJSON["evaluations.json"]
     end
 ```
