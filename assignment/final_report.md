@@ -122,33 +122,24 @@ graph TD
     end
 
     %% --- PART 2: PRODUCTION SYSTEM (BONUS) ---
-    subgraph "Phase 2: Production System (Bonus Features)"
-        subgraph "Input Stage"
-        User["User Query"]
-    end
-
-    subgraph "1. Prompting Layer"
-        User --> PromptEngine{"Prompt Engineering Logic"}
-        PromptEngine -- "Chooses ONE strategy" --> FormattedPrompt["Formatted Prompt"]
-    end
-
-    subgraph "2. API & Model Execution Layer"
-        FormattedPrompt --> APIRouter{API Router}
-        APIRouter --> OpenAI["OpenAI (GPT-4o)"]
-        APIRouter --> Gemini["Gemini"]
-        APIRouter --> Cohere["Cohere"]
-        APIRouter --> Local["Local LLM (e.g. Llama 3)"]
-    end
-
-    subgraph "3. Logging & Data Persistence"
-        %% Metrics are logged from the router
-        APIRouter -- "Logs Latency & Cost" --> CSV["cost_latency.csv"]
+    subgraph "Phase 2: Production System (React + FastAPI + RAG)"
+        LiveUser["Live User"] --> ReactUI["React Frontend (Chat Widget)"]
         
-        %% Raw text responses are saved from each model
-        OpenAI --> Responses["/responses/openai_response.txt"]
-        Gemini --> Responses
-        Cohere --> Responses
-        Local --> Responses
-    end
+        subgraph "Backend Logic (FastAPI)"
+            ReactUI -- "POST /chat/stream" --> Controller["Chat Controller"]
+            
+            subgraph "Context Retrieval"
+                Controller --> CacheCheck{"LRU Memory Cache"}
+                CacheCheck -- "Miss" --> VectorDB[("ChromaDB (Policies)")]
+                VectorDB -- "Retrieved Chunks" --> CacheCheck
+            end
+            
+            subgraph "Structured Generation"
+                CacheCheck -- "Context + Persona" --> PromptEngine["Structured Prompt Builder"]
+                PromptEngine -- "Final System Prompt" --> Gemini["Gemini 2.0 Flash"]
+            end
+            
+            Gemini -- "SSE Stream" --> ReactUI
+        end
     end
 ```
