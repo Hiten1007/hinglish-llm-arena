@@ -4,3 +4,6 @@ venv/
 
 # 2. Secrets (NEVER commit these)
 .env
+
+node_modules/
+dist/
